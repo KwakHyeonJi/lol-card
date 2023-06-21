@@ -1,21 +1,24 @@
 import styled from 'styled-components'
 
-interface CardTextProps {
+interface CardTitleProps {
     summonerName: string
     championName: string
+    bestKDA: string
 }
 
-const CardText = ({ summonerName, championName }: CardTextProps) => {
+const CardTitle = ({ summonerName, championName, bestKDA }: CardTitleProps) => {
     return (
-        <CardTextLayout>
+        <CardTitleLayout>
             <p>PLAY OF THE GAME</p>
             <p>{summonerName}</p>
-            <p>AS {championName}</p>
-        </CardTextLayout>
+            <p>
+                AS {championName} / KDA {bestKDA}
+            </p>
+        </CardTitleLayout>
     )
 }
 
-const CardTextLayout = styled.div`
+const CardTitleLayout = styled.div`
     position: absolute;
     bottom: 15%;
     left: 10%;
@@ -38,4 +41,4 @@ const CardTextLayout = styled.div`
     }
 `
 
-export default CardText
+export default CardTitle

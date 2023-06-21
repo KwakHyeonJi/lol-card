@@ -2,21 +2,22 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { getMatch, getMatchIdList, getSummoner } from '../service/riotService'
 import { secToTime } from '../utils/time'
-import CardBackground from './CardBackground'
 import { styled } from 'styled-components'
-import CardText from './CardText'
+import CardFrontContent from './CardFrontContent'
+import CardBackContent from './CardBackContent'
 
-const MATCH_COUNT = 20
+const MATCH_COUNT = 1
 
 const Card = () => {
     const { name } = useParams()
     const [info, setInfo] = useState({
         summonerName: '',
         summonerLevel: 0,
-        bestChampion: '',
-        mapId: 0,
-        kda: '',
+        profileIconId: -1,
         matchCount: 0,
+        mapId: 0,
+        bestChampion: '',
+        bestKDA: '',
         winRate: '',
         avgPlaytime: '',
         avgKDA: '',
@@ -25,8 +26,6 @@ const Card = () => {
         totalTripleKills: 0,
         totalQuadraKills: 0,
         totalPentaKills: 0,
-        profile: '',
-        splash: '',
     })
 
     const makeCard = async (name: string) => {
@@ -88,10 +87,11 @@ const Card = () => {
         setInfo({
             summonerName,
             summonerLevel: level,
-            bestChampion: championName,
-            mapId,
-            kda: ((kills + assists) / deaths).toFixed(2),
+            profileIconId,
             matchCount,
+            mapId,
+            bestChampion: championName,
+            bestKDA: ((kills + assists) / deaths).toFixed(2),
             winRate: `${Math.round((total.win / matchCount) * 100)}%`,
             avgPlaytime: secToTime(total.timePlayed / matchCount),
             avgKDA: ((total.kills + total.assists) / total.deaths).toFixed(2),
@@ -100,8 +100,6 @@ const Card = () => {
             totalTripleKills: total.tripleKills,
             totalQuadraKills: total.quadraKills,
             totalPentaKills: total.pentaKills,
-            profile: `${process.env.REACT_APP_API_URL_PROFILE}/${profileIconId}.png`,
-            splash: `${process.env.REACT_APP_API_URL_SPLASH}/${championName}_0.jpg`,
         })
     }
 
@@ -111,32 +109,67 @@ const Card = () => {
 
     return (
         <CardLayout>
-            <CardBackground imagePath={info.splash} championName={info.bestChampion} />
-            <CardText summonerName={info.summonerName} championName={info.bestChampion} />
-            <p>최근 {info.matchCount}게임 통계</p>
-            <p>소환사명 {info.summonerName}</p>
-            <p>레벨 {info.summonerLevel}</p>
-            <p>(KDA 기준) 베스트 챔피언 {info.bestChampion}</p>
-            <p>KDA {info.kda}</p>
-            <p>맵 {info.mapId}</p>
-            <p>승률 {info.winRate}</p>
-            <p>평균 플레이 타임 {info.avgPlaytime}</p>
-            <p>평균 KDA {info.avgKDA}</p>
-            <p>평균 킬관여율 {info.avgKillParticipation}</p>
-            <p>더블킬 {info.totalDoubleKills}</p>
-            <p>트리플킬 {info.totalTripleKills}</p>
-            <p>쿼드라킬 {info.totalQuadraKills}</p>
-            <p>펜타킬 {info.totalPentaKills}</p>
-            <img src={info.profile} alt='profile icon' />
+            <CardFront>
+                <CardFrontContent
+                    summonerName={info.summonerName}
+                    championName={info.bestChampion}
+                    bestKDA={info.bestKDA}
+                    mapId={info.mapId}
+                />
+            </CardFront>
+            <CardBack>
+                <CardBackContent
+                    profileIconId={info.profileIconId}
+                    summonerName={info.summonerName}
+                    summonerLevel={info.summonerLevel}
+                    matchCount={info.matchCount}
+                />
+                {/* 
+                <p>승률 {info.winRate}</p>
+                <p>평균 플레이 타임 {info.avgPlaytime}</p>
+                <p>평균 KDA {info.avgKDA}</p>
+                <p>평균 킬관여율 {info.avgKillParticipation}</p>
+                <p>더블킬 {info.totalDoubleKills}</p>
+                <p>트리플킬 {info.totalTripleKills}</p>
+                <p>쿼드라킬 {info.totalQuadraKills}</p>
+                <p>펜타킬 {info.totalPentaKills}</p>
+                 */}
+            </CardBack>
         </CardLayout>
     )
 }
 
+const CardSide = styled.div`
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    backface-visibility: hidden;
+    transition: 0.5s ease;
+`
+
+const CardFront = styled(CardSide)`
+    position: absolute;
+    transform: rotateY(0deg);
+`
+
+const CardBack = styled(CardSide)`
+    background: #31313c;
+    transform: rotateY(-180deg);
+`
+
 const CardLayout = styled.div`
-    position: relative;
     width: 800px;
     height: 500px;
     margin: 0 auto;
+    perspective: 1000px;
+
+    &:hover ${CardFront} {
+        transform: rotateY(180deg);
+    }
+
+    &:hover ${CardBack} {
+        transform: rotateY(0deg);
+    }
 `
 
 export default Card
