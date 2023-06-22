@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from 'react'
+import { createContext, useCallback, useContext, useState } from 'react'
 
 const NULL_VALUE = -1
 
@@ -47,9 +47,9 @@ interface CardContextProps {
 const CardProvider = ({ children }: CardContextProps) => {
     const [state, setState] = useState(initialState)
 
-    const updateCard = (card: CardState) => {
+    const updateCard = useCallback((card: CardState) => {
         setState(card)
-    }
+    }, [])
 
     return (
         <CardStateContext.Provider value={state}>
