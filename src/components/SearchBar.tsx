@@ -38,6 +38,7 @@ const SearchBarLayout = styled.div`
         height: 100%;
         border-radius: 50px;
         background: #31313c;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 
         input {
             flex: 1;
