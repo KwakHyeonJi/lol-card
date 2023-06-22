@@ -3,16 +3,16 @@ import styled from 'styled-components'
 interface CardTitleProps {
     summonerName: string
     championName: string
-    bestKDA: string
+    bestKda: string
 }
 
-const CardTitle = ({ summonerName, championName, bestKDA }: CardTitleProps) => {
+const CardTitle = ({ summonerName, championName, bestKda }: CardTitleProps) => {
     return (
         <CardTitleLayout>
             <p>PLAY OF THE GAME</p>
             <p>{summonerName}</p>
             <p>
-                AS {championName} / KDA {bestKDA}
+                AS {championName} / KDA {bestKda}
             </p>
         </CardTitleLayout>
     )

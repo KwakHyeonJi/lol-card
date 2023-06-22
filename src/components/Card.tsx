@@ -1,13 +1,12 @@
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
-import { getMatch, getMatchIdList, getSummoner } from '../service/riotService'
-import { secToTime } from '../utils/time'
 import { styled } from 'styled-components'
+import { getMatch, getMatchIdList, getSummoner } from '../service/riotService'
 import CardFrontContent from './CardFrontContent'
 import CardBackContent from './CardBackContent'
 import { useCardUpdate } from '../context/cardContext'
 
-const MATCH_COUNT = 1
+const MATCH_COUNT = 10
 
 const Card = () => {
     const { name } = useParams()
@@ -77,15 +76,17 @@ const Card = () => {
                 matchCount,
                 mapId,
                 bestChampion: championName,
-                bestKDA: ((kills + assists) / deaths).toFixed(2),
-                winRate: `${Math.round((total.win / matchCount) * 100)}%`,
-                avgPlaytime: secToTime(total.timePlayed / matchCount),
-                avgKDA: ((total.kills + total.assists) / total.deaths).toFixed(2),
-                avgKillParticipation: `${Math.round(((total.kills + total.assists) / total.teamKills) * 100)}%`,
+                bestKda: ((kills + assists) / deaths).toFixed(2),
+                win: total.win,
+                avgGameDuration: total.timePlayed / matchCount,
+                totalKills: total.kills,
+                totalAssists: total.assists,
+                totalDeaths: total.deaths,
                 totalDoubleKills: total.doubleKills,
                 totalTripleKills: total.tripleKills,
                 totalQuadraKills: total.quadraKills,
                 totalPentaKills: total.pentaKills,
+                teamKills: total.teamKills,
             })
         }
 
@@ -99,16 +100,6 @@ const Card = () => {
             </CardFront>
             <CardBack>
                 <CardBackContent />
-                {/* 
-                <p>승률 {info.winRate}</p>
-                <p>평균 플레이 타임 {info.avgPlaytime}</p>
-                <p>평균 KDA {info.avgKDA}</p>
-                <p>평균 킬관여율 {info.avgKillParticipation}</p>
-                <p>더블킬 {info.totalDoubleKills}</p>
-                <p>트리플킬 {info.totalTripleKills}</p>
-                <p>쿼드라킬 {info.totalQuadraKills}</p>
-                <p>펜타킬 {info.totalPentaKills}</p>
-                 */}
             </CardBack>
         </CardLayout>
     )

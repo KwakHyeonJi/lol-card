@@ -7,5 +7,5 @@ export const getTimeStamp = () => {
 export const secToTime = (duration: number) => {
     const minutes = Math.floor(duration / 60)
     const seconds = Math.floor(duration % 60)
-    return minutes + '분 ' + seconds + '초'
+    return [minutes, seconds]
 }
