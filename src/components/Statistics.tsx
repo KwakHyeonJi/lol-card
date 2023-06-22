@@ -11,24 +11,27 @@ const Statistics = () => {
             data: [win, matchCount - win],
             colors: ['#5383e8', '#e84057'],
             centerText: `${Math.round((win / matchCount) * 100)}%`,
+            caption: `${win} wins ${matchCount - win} losses`,
         },
         avgKda: {
             data: [totalKills, totalAssists, totalDeaths],
             colors: ['#FF9900', '#00bba3', '#7b7a8e'],
             centerText: ((totalKills + totalAssists) / totalDeaths).toFixed(2),
+            caption: 'Average KDA',
         },
         avgKillParticipation: {
             data: [totalKills + totalAssists, teamKills - (totalKills + totalAssists)],
             colors: ['#A57CFF', '#7b7a8e'],
             centerText: `${Math.round(((totalKills + totalAssists) / teamKills) * 100)}%`,
+            caption: 'Kill Participation',
         },
     }
 
     return (
         <StatisticsLayout>
             <ChartSection>
-                {Object.entries(chartData).map(([key, { data, colors, centerText }]) => (
-                    <CustomDoughnut key={key} data={data} colors={colors}>
+                {Object.entries(chartData).map(([key, { data, colors, centerText, caption }]) => (
+                    <CustomDoughnut key={key} data={data} colors={colors} caption={caption}>
                         {centerText}
                     </CustomDoughnut>
                 ))}

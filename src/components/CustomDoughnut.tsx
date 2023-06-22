@@ -9,9 +9,10 @@ interface CustomDoughnutProps {
     children: string
     data: number[]
     colors: string[]
+    caption: string
 }
 
-const CustomDoughnut = ({ children, data, colors }: CustomDoughnutProps) => {
+const CustomDoughnut = ({ children, data, colors, caption }: CustomDoughnutProps) => {
     return (
         <CustomDoughnutLayout>
             <Doughnut
@@ -36,7 +37,10 @@ const CustomDoughnut = ({ children, data, colors }: CustomDoughnutProps) => {
                     },
                 }}
             />
-            <CenterText>{children}</CenterText>
+            <CenterText>
+                <p>{children}</p>
+                <p>{caption}</p>
+            </CenterText>
         </CustomDoughnutLayout>
     )
 }
@@ -49,10 +53,15 @@ const CustomDoughnutLayout = styled.div`
     height: 100%;
 `
 
-const CenterText = styled.span`
+const CenterText = styled.div`
     position: absolute;
     color: #fff;
     font-size: 1.5rem;
+    text-align: center;
+
+    p:nth-child(2) {
+        font-size: 0.8rem;
+    }
 `
 
 export default CustomDoughnut
