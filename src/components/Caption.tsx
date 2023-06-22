@@ -24,7 +24,10 @@ const CaptionLayout = styled.div`
     margin: 0 0 25px 0;
 
     span {
-        font-size: 1.2rem;
+        display: inline-block;
+        padding: 0 10px;
+        border-radius: 20px;
+        background: #7b7a8e;
     }
 `
 
