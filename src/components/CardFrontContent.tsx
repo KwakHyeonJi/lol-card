@@ -1,20 +1,15 @@
 import ChampionSplash from './ChampionSplash'
 import CardTitle from './CardTitle'
 import Minimap from './Minimap'
+import { useCardState } from '../context/cardContext'
 
-interface CardFrontContentProps {
-    summonerName: string
-    championName: string
-    bestKDA: string
-    mapId: number
-}
-
-const CardFrontContent = ({ summonerName, championName, bestKDA, mapId }: CardFrontContentProps) => {
+const CardFrontContent = () => {
+    const { summonerName, bestChampion, bestKDA, mapId } = useCardState()
     return (
         <>
-            <ChampionSplash name={championName} />
+            <ChampionSplash name={bestChampion} />
             <Minimap id={mapId} />
-            <CardTitle summonerName={summonerName} championName={championName} bestKDA={bestKDA} />
+            <CardTitle summonerName={summonerName} championName={bestChampion} bestKDA={bestKDA} />
         </>
     )
 }

@@ -4,6 +4,7 @@ import GlobalStyle from './styles/GlobalStyle'
 import ErrorPage from './pages/ErrorPage'
 import Root from './pages/Root'
 import Card from './components/Card'
+import { CardProvider } from './context/cardContext'
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -16,8 +17,8 @@ const router = createBrowserRouter(
 )
 
 createRoot(document.getElementById('root') as HTMLElement).render(
-    <>
+    <CardProvider>
         <GlobalStyle />
         <RouterProvider router={router} />
-    </>
+    </CardProvider>
 )

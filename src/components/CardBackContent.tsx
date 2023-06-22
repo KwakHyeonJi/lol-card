@@ -1,14 +1,9 @@
 import styled from 'styled-components'
 import SummonerProfileIcon from './SummonerProfileIcon'
+import { useCardState } from '../context/cardContext'
 
-interface CardBackContentProps {
-    profileIconId: number
-    summonerName: string
-    summonerLevel: number
-    matchCount: number
-}
-
-const CardBackContent = ({ profileIconId, summonerName, summonerLevel, matchCount }: CardBackContentProps) => {
+const CardBackContent = () => {
+    const { profileIconId, summonerName, summonerLevel, matchCount } = useCardState()
     return (
         <CardBackContentLayout>
             <ProfileSection>
