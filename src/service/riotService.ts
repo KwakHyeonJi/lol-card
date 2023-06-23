@@ -1,4 +1,4 @@
-import { instance } from '../api'
+import { krInstance, asiaInstance } from '../api'
 
 interface SummonerResponse {
     name: string
@@ -12,10 +12,10 @@ interface MatchResponse {
         mapId: number
         participants: {
             summonerName: string
+            championName: string
 
-            teamId: number
             timePlayed: number
-
+            teamId: number
             win: boolean
 
             kills: number
@@ -26,17 +26,6 @@ interface MatchResponse {
             tripleKills: number
             quadraKills: number
             pentaKills: number
-
-            champExperience: number
-            champLevel: number
-            championName: string
-
-            item0: number
-            item1: number
-            item2: number
-            item3: number
-            item4: number
-            item5: number
         }[]
         teams: {
             teamId: number
@@ -49,7 +38,8 @@ interface MatchResponse {
     }
 }
 
-export const getSummoner = async (name: string): Promise<SummonerResponse> => await instance.get(`/summoner/${name}`)
+export const getSummoner = async (name: string): Promise<SummonerResponse> =>
+    await krInstance.get(`${process.env.REACT_APP_API_URL_SUMMONER}/${name}`)
 
 export const getMatchIdList = async (
     puuid: string,
@@ -57,7 +47,7 @@ export const getMatchIdList = async (
     startTime?: number,
     endTime?: number
 ): Promise<string[]> =>
-    await instance.get(`/match/by-puuid/${puuid}/ids`, {
+    await asiaInstance.get(`${process.env.REACT_APP_API_URL_MATCH}/by-puuid/${puuid}/ids`, {
         params: {
             count,
             startTime,
@@ -65,4 +55,5 @@ export const getMatchIdList = async (
         },
     })
 
-export const getMatch = async (matchId: string): Promise<MatchResponse> => await instance.get(`/match/${matchId}`)
+export const getMatch = async (matchId: string): Promise<MatchResponse> =>
+    await asiaInstance.get(`${process.env.REACT_APP_API_URL_MATCH}/${matchId}`)
