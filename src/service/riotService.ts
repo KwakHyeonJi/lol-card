@@ -1,4 +1,4 @@
-import { krInstance, asiaInstance } from '../api'
+import { instance } from '../api'
 
 interface SummonerResponse {
     name: string
@@ -39,7 +39,7 @@ interface MatchResponse {
 }
 
 export const getSummoner = async (name: string): Promise<SummonerResponse> =>
-    await krInstance.get(`${process.env.REACT_APP_API_URL_SUMMONER}/${name}`)
+    await instance.get(`/kr/summoner/v4/summoners/by-name/${name}`)
 
 export const getMatchIdList = async (
     puuid: string,
@@ -47,7 +47,7 @@ export const getMatchIdList = async (
     startTime?: number,
     endTime?: number
 ): Promise<string[]> =>
-    await asiaInstance.get(`${process.env.REACT_APP_API_URL_MATCH}/by-puuid/${puuid}/ids`, {
+    await instance.get(`/asia/match/v5/matches/by-puuid/${puuid}/ids`, {
         params: {
             count,
             startTime,
@@ -56,4 +56,4 @@ export const getMatchIdList = async (
     })
 
 export const getMatch = async (matchId: string): Promise<MatchResponse> =>
-    await asiaInstance.get(`${process.env.REACT_APP_API_URL_MATCH}/${matchId}`)
+    await instance.get(`/asia/match/v5/matches/${matchId}`)

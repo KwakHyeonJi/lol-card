@@ -1,0 +1,12 @@
+{
+    "rewrites": [
+        {
+            "source": "/kr/:path*",
+            "destination": "https://kr.api.riotgames.com/lol/:path*"
+        },
+        {
+            "source": "/asia/:path*",
+            "destination": "https://asia.api.riotgames.com/lol/:path*"
+        }
+    ]
+}
