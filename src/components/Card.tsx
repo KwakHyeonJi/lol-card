@@ -6,7 +6,7 @@ import CardFrontContent from './CardFrontContent'
 import CardBackContent from './CardBackContent'
 import { useCardUpdate } from '../context/cardContext'
 
-const MATCH_COUNT = 20
+const MATCH_COUNT = 10
 
 const Card = () => {
     const { name } = useParams()
