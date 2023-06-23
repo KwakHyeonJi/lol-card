@@ -5,6 +5,7 @@ interface SummonerProfileIconProps {
 }
 
 const SummonerProfileIcon = ({ id }: SummonerProfileIconProps) => {
+    console.log(process.env.REACT_APP_API_URL_PROFILE)
     return (
         <SummonerProfileIconLayout
             src={`${process.env.REACT_APP_API_URL_PROFILE}/${id}.png`}
