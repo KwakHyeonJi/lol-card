@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 
 interface CardTitleProps {
     summonerName: string
@@ -8,7 +8,7 @@ interface CardTitleProps {
 
 const CardTitle = ({ summonerName, championName, bestKda }: CardTitleProps) => {
     return (
-        <CardTitleLayout>
+        <CardTitleLayout key={summonerName}>
             <p>PLAY OF THE GAME</p>
             <p>{summonerName}</p>
             <p>
@@ -18,12 +18,22 @@ const CardTitle = ({ summonerName, championName, bestKda }: CardTitleProps) => {
     )
 }
 
+const animate = keyframes`
+    from {
+        transform: translateX(-20%);
+    }
+    to {
+        transform: translateX(0%);
+    }
+`
+
 const CardTitleLayout = styled.div`
     position: absolute;
     bottom: 15%;
     left: 10%;
     font-family: 'koverwatch';
     font-style: italic;
+    animation: ${animate} 0.8s ease;
 
     p:nth-child(1) {
         color: #fff;

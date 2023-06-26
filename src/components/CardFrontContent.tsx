@@ -9,7 +9,7 @@ const CardFrontContent = () => {
         <>
             <ChampionSplash name={bestChampion} />
             <Minimap id={mapId} />
-            <CardTitle summonerName={summonerName} championName={bestChampion} bestKda={bestKda} />
+            {summonerName && <CardTitle summonerName={summonerName} championName={bestChampion} bestKda={bestKda} />}
         </>
     )
 }
