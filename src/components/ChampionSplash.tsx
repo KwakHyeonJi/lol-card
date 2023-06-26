@@ -1,40 +1,32 @@
-import { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Spinner from './Spinner'
+import useImage from '../hooks/useImage'
 
 interface CardBackgroundProps {
     name: string
 }
 
 const ChampionSplash = ({ name }: CardBackgroundProps) => {
-    const splashImage = `${process.env.REACT_APP_API_URL_SPLASH}/${name}_0.jpg`
-    const [isReady, setIsReady] = useState(false)
-    const [hasError, setHasError] = useState(false)
-
-    const handleImageError = () => {
-        setHasError(true)
-    }
-
-    useEffect(() => {
-        name && setIsReady(true)
-    }, [name])
+    const imagePath = `${process.env.REACT_APP_API_URL_SPLASH}/${name}_0.jpg`
+    const { showSpinner, handleImageError } = useImage(name)
 
     return (
-        <>
-            {!isReady || hasError ? (
-                <Spinner />
-            ) : (
-                <ChampionSplashLayout src={splashImage} alt={name} onError={handleImageError} />
-            )}
-        </>
+        <ChampionSplashLayout>
+            {showSpinner ? <Spinner /> : <img src={imagePath} alt={name} onError={handleImageError} />}
+        </ChampionSplashLayout>
     )
 }
-const ChampionSplashLayout = styled.img`
+const ChampionSplashLayout = styled.div`
     width: 100%;
     height: 100%;
-    border-radius: 20px;
-    object-fit: cover;
-    filter: brightness(0.9);
+
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 20px;
+        object-fit: cover;
+        filter: brightness(0.9);
+    }
 `
 
 export default ChampionSplash
