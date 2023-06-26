@@ -2,20 +2,20 @@ const { createProxyMiddleware } = require('http-proxy-middleware')
 
 module.exports = (app) => {
     app.use(
-        createProxyMiddleware('/summoner', {
-            target: process.env.REACT_APP_API_URL_KR + process.env.REACT_APP_API_URL_SUMMONER,
+        createProxyMiddleware('/kr', {
+            target: process.env.REACT_APP_API_URL_KR,
             changeOrigin: true,
             pathRewrite: {
-                '^/summoner': '',
+                '^/kr': '',
             },
         })
     )
     app.use(
-        createProxyMiddleware('/match', {
-            target: process.env.REACT_APP_API_URL_ASIA + process.env.REACT_APP_API_URL_MATCH,
+        createProxyMiddleware('/asia', {
+            target: process.env.REACT_APP_API_URL_ASIA,
             changeOrigin: true,
             pathRewrite: {
-                '^/match': '',
+                '^/asia': '',
             },
         })
     )
