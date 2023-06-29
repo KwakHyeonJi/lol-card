@@ -7,7 +7,7 @@ import { useCardUpdate } from '../context/cardContext'
 import CardFrontContent from './CardFrontContent'
 import CardBackContent from './CardBackContent'
 
-const MATCH_COUNT = 1
+const MATCH_COUNT = 10
 const NULL_VALUE = -1
 
 const Card = () => {
