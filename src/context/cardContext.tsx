@@ -12,6 +12,7 @@ interface CardState {
     bestKda: string
     avgGameDuration: number
     win: number
+    teamKills: number
     totalKills: number
     totalAssists: number
     totalDeaths: number
@@ -19,14 +20,13 @@ interface CardState {
     totalTripleKills: number
     totalQuadraKills: number
     totalPentaKills: number
-    teamKills: number
 }
 
 type CardUpdate = (card: CardState) => void
 
 const initialState: CardState = {
     summonerName: '',
-    summonerLevel: 0,
+    summonerLevel: NULL_VALUE,
     profileIconId: NULL_VALUE,
     matchCount: 0,
     mapId: NULL_VALUE,
@@ -34,6 +34,7 @@ const initialState: CardState = {
     bestKda: '',
     win: 0,
     avgGameDuration: 0,
+    teamKills: 0,
     totalKills: 0,
     totalAssists: 0,
     totalDeaths: 0,
@@ -41,7 +42,6 @@ const initialState: CardState = {
     totalTripleKills: 0,
     totalQuadraKills: 0,
     totalPentaKills: 0,
-    teamKills: 0,
 }
 
 interface CardContextProps {
