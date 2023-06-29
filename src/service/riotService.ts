@@ -1,13 +1,13 @@
 import { instance } from '../api'
 
-interface SummonerResponse {
+export interface SummonerResponse {
     name: string
     puuid: string
     summonerLevel: number
     profileIconId: number
 }
 
-interface MatchResponse {
+export interface MatchResponse {
     info: {
         mapId: number
         participants: {

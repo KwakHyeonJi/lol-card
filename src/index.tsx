@@ -5,6 +5,9 @@ import ErrorPage from './pages/ErrorPage'
 import Root from './pages/Root'
 import Card from './components/Card'
 import { CardProvider } from './context/cardContext'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+
+const queryClient = new QueryClient()
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -17,8 +20,10 @@ const router = createBrowserRouter(
 )
 
 createRoot(document.getElementById('root') as HTMLElement).render(
-    <CardProvider>
-        <GlobalStyle />
-        <RouterProvider router={router} />
-    </CardProvider>
+    <QueryClientProvider client={queryClient}>
+        <CardProvider>
+            <GlobalStyle />
+            <RouterProvider router={router} />
+        </CardProvider>
+    </QueryClientProvider>
 )

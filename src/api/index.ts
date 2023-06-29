@@ -10,5 +10,5 @@ export const instance = axios.create(options)
 
 instance.interceptors.response.use(
     (response) => response.data,
-    (error) => Promise.reject(error)
+    (error) => Promise.reject(error.response.data.status.message)
 )
